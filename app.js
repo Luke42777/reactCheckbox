@@ -16,23 +16,33 @@ const NegativeMessage = () => {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class CheckboxAgeConfirmation extends React.Component {
+class TicketShop extends React.Component {
     state = {
         isConfirmed: false,
+        isSubmited: false,
     }
 
     handleChange = () => {
         this.setState({ isConfirmed: !this.state.isConfirmed, })
     }
 
-    displayMessage = () =>
-    {
-        if(this.state.isConfirmed){
-            return <PositiveMessage />
+    displayMessage = () => {
+        if (this.state.isSubmited) {
+            if (this.state.isConfirmed) {
+                return <PositiveMessage />
+            }
+            else {
+                return <NegativeMessage />
+            }
         }
-        else{
-            return <NegativeMessage />
-        }
+    }
+
+    handlerSubmit = (e) => {
+        e.preventDefault();
+        this.setState({
+            isSubmited: true,
+        })
+
     }
 
     render() {
@@ -40,14 +50,16 @@ class CheckboxAgeConfirmation extends React.Component {
         return (
             <>
                 <h1>Buy ticket for horror of the year</h1>
-                <input type="checkbox" id="age" onChange={this.handleChange} checked={this.state.isConfirmed} />
-                <label htmlFor="age">I'm over 16</label>
-                {this.displayMessage()}
-
+                <form onSubmit={this.handlerSubmit}>
+                    <input type="checkbox" id="age" onChange={this.handleChange} checked={this.state.isConfirmed} />
+                    <label htmlFor="age">I'm over 16</label><br />
+                    <button type="submit" onC>Buy ticket</button>
+                    {this.displayMessage()}
+                </form>
             </>
         )
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-ReactDOM.render(<React.StrictMode><CheckboxAgeConfirmation /></React.StrictMode>, document.getElementById("root"))
+ReactDOM.render(<React.StrictMode><TicketShop /></React.StrictMode>, document.getElementById("root"))
