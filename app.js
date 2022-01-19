@@ -1,21 +1,10 @@
-const PositiveMessage = () => {
-    return (
-        <p><strong>You can watch the movie</strong></p>
-    )
 
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const NegativeMessage = () => {
-    return (
-        <p>
-            <strong>You are not allowed to watch the movie yet:(</strong>
-        </p>
+const ValidationMessage = (props) => {
+    return( <p>{props.txt}</p>
     )
-
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class TicketShop extends React.Component {
     state = {
         isConfirmed: false,
@@ -23,21 +12,23 @@ class TicketShop extends React.Component {
     }
 
     handleChange = () => {
-        this.setState({ isConfirmed: !this.state.isConfirmed, })
+        this.setState({ 
+            isConfirmed: !this.state.isConfirmed,
+            isSubmited: false })
     }
 
     displayMessage = () => {
         if (this.state.isSubmited) {
             if (this.state.isConfirmed) {
-                return <PositiveMessage />
+                return <ValidationMessage txt="You can watch the movie" />
             }
             else {
-                return <NegativeMessage />
+                return <ValidationMessage txt="You are not allowed to watch the movie yet:(" />
             }
         }
     }
 
-    handlerSubmit = (e) => {
+    handleSubmit = (e) => {
         e.preventDefault();
         this.setState({
             isSubmited: true,
@@ -50,16 +41,16 @@ class TicketShop extends React.Component {
         return (
             <>
                 <h1>Buy ticket for horror of the year</h1>
-                <form onSubmit={this.handlerSubmit}>
+                <form onSubmit={this.handleSubmit}>
                     <input type="checkbox" id="age" onChange={this.handleChange} checked={this.state.isConfirmed} />
                     <label htmlFor="age">I'm over 16</label><br />
-                    <button type="submit" onC>Buy ticket</button>
+                    <button type="submit">Buy ticket</button>
                     {this.displayMessage()}
                 </form>
             </>
         )
     }
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 ReactDOM.render(<React.StrictMode><TicketShop /></React.StrictMode>, document.getElementById("root"))
