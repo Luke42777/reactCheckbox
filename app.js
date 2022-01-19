@@ -15,6 +15,17 @@ const displayMessage = (isConf,isSubm) => {
     }
 }
 
+const OrderForm = (props) => {
+    const {submit,change,checked} = props;
+    
+    return(
+        <form onSubmit={submit}>
+        <input type="checkbox" id="age" onChange={change} checked={checked} />
+        <label htmlFor="age">I'm over 16</label><br />
+        <button type="submit">Buy ticket</button>
+    </form>
+    )
+}
 
 
 class TicketShop extends React.Component {
@@ -40,18 +51,13 @@ class TicketShop extends React.Component {
     }
 
     render() {
-
         const {isConfirmed,isSubmited} = this.state;
 
         return (
             <>
                 <h1>Buy ticket for horror of the year</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="checkbox" id="age" onChange={this.handleChange} checked={isConfirmed} />
-                    <label htmlFor="age">I'm over 16</label><br />
-                    <button type="submit">Buy ticket</button>
-                    {displayMessage(isConfirmed,isSubmited)}
-                </form>
+                <OrderForm submit={this.handleSubmit} change={this.handleChange} checked={isConfirmed} />
+                {displayMessage(isConfirmed,isSubmited)}
             </>
         )
     }
