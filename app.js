@@ -4,6 +4,18 @@ const ValidationMessage = (props) => {
     )
 }
 
+const displayMessage = (isConf,isSubm) => {
+    if (isSubm) {
+        if (isConf) {
+            return <ValidationMessage txt="You can watch the movie" />
+        }
+        else {
+            return <ValidationMessage txt="You are not allowed to watch the movie yet:(" />
+        }
+    }
+}
+
+
 
 class TicketShop extends React.Component {
     state = {
@@ -17,16 +29,7 @@ class TicketShop extends React.Component {
             isSubmited: false })
     }
 
-    displayMessage = () => {
-        if (this.state.isSubmited) {
-            if (this.state.isConfirmed) {
-                return <ValidationMessage txt="You can watch the movie" />
-            }
-            else {
-                return <ValidationMessage txt="You are not allowed to watch the movie yet:(" />
-            }
-        }
-    }
+   
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -38,7 +41,7 @@ class TicketShop extends React.Component {
 
     render() {
 
-        const {isConfirmed} = this.state;
+        const {isConfirmed,isSubmited} = this.state;
 
         return (
             <>
@@ -47,7 +50,7 @@ class TicketShop extends React.Component {
                     <input type="checkbox" id="age" onChange={this.handleChange} checked={isConfirmed} />
                     <label htmlFor="age">I'm over 16</label><br />
                     <button type="submit">Buy ticket</button>
-                    {this.displayMessage()}
+                    {displayMessage(isConfirmed,isSubmited)}
                 </form>
             </>
         )
