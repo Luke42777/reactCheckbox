@@ -38,11 +38,13 @@ class TicketShop extends React.Component {
 
     render() {
 
+        const {isConfirmed} = this.state;
+
         return (
             <>
                 <h1>Buy ticket for horror of the year</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="checkbox" id="age" onChange={this.handleChange} checked={this.state.isConfirmed} />
+                    <input type="checkbox" id="age" onChange={this.handleChange} checked={isConfirmed} />
                     <label htmlFor="age">I'm over 16</label><br />
                     <button type="submit">Buy ticket</button>
                     {this.displayMessage()}
